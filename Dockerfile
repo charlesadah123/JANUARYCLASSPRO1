@@ -11,6 +11,6 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 COPY webapp/target/webapp.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose port
-EXPOSE 8080
+EXPOSE 8081
 
 # Tomcat starts automatically with CMD
