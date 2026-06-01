@@ -1,1 +1,1 @@
-How is it going
+How is it goings
