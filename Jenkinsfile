@@ -39,6 +39,16 @@
             }
         }
 
+         stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-cred') {
+                        sh 'docker push charlesadah/myapp:latest'
+                    }
+                }
+            }
+        }
+
         stage('Stop Old Container') {
             steps {
                 sh 'docker rm -f myapp || true'
@@ -54,15 +64,15 @@
 
     post {
         always {
-            archiveArtifacts artifacts: 'app.log', allowEmptyArchive: true
+             echo 'Pipeline finished.'
         }
 
         success {
-            echo 'Application running in Docker on port 8081'
+             echo 'SUCCESS: App built, pushed to Docker Hub, and running on port 8081.'
         }
 
         failure {
-            echo 'Pipeline failed'
+           echo 'FAILED: Check Jenkins logs for errors.'
         }
     }
 }
